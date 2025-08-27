@@ -12,13 +12,10 @@
 
 extern sh2_vector_list_t sh2_vector_list;
 
-#define TIME_SLEEP (1000.0f/(float)SAMPLE_RATE)
-
-float sensors_data[SENSOR_COUNT][4];
-
 #define ARRAY_SIZE (1024)
 #define RESULT_COUNT (64)
 #define SETTINGS_BUF_LEN (256)
+#define LOOP_DURATION_MS 6.252f
 
 enum settings_enum_e {
     S_SENSOR_COUNT,
@@ -40,14 +37,6 @@ typedef struct imu_reader_settings_t {
 imu_reader_settings_t imu_reader_settings = {
     0
 };
-
-typedef struct data_fluctuation_t {
-    float gyro[3][ARRAY_SIZE];
-    float results[2][RESULT_COUNT];
-    int cursor;
-} data_fluctuation_t;
-
-data_fluctuation_t benchmark = {.cursor = 0};
 
 float apply_lpf(float new_val, float old_value) {
     return old_value*(1.0f-imu_reader_settings.lpf_alpha) + imu_reader_settings.lpf_alpha*new_val;
@@ -128,8 +117,8 @@ void wait_for_settings() {
     }
 }
 
-void print_output_data (void) {
-    for (int i = 0; i < SENSOR_COUNT; i++) {
+void print_output_data (float sensors_data[][4]) {
+    for (int i = 0; i < imu_reader_settings.sensorCount; i++) {
         printf("w%d: %.4f, x%d: %.4f, y%d: %.4f, z%d: %.4f | ",i, sensors_data[i][0],i, sensors_data[i][1],i, sensors_data[i][2],i, sensors_data[i][3] );
     }
     printf("\n");
@@ -143,6 +132,12 @@ int main() {
     }
     wait_for_settings();
     // setup_sh2_service();
+    
+    wait_for_settings();
+    float sensors_data[imu_reader_settings.sensorCount][4];
+    
+    float desired_loop_duration = 1000.0f/(float)imu_reader_settings.sampleRate;
+    float sleep_time = desired_loop_duration - LOOP_DURATION_MS;
     int result = setup_I2C_pins();
 
     if (result != 1) {
@@ -158,7 +153,7 @@ int main() {
     initialize_algos(sensors);   
     
     int counter = 0;
-    uint64_t start_time = time_us_64();
+    // uint64_t start_time = time_us_64();
     while (true) {
         read_all_sensors(sensors);
         for (int i=0; i<SENSOR_COUNT;i++) {
@@ -185,9 +180,9 @@ int main() {
             sensors_data[i][2] = quat.element.y;
             sensors_data[i][3] = quat.element.z;           
         }
-        print_output_data();
-        uint64_t loop_end = time_us_64();
-        sleep_ms(TIME_SLEEP-6.252f); // 120hz
+        print_output_data(sensors_data);
+        // uint64_t loop_end = time_us_64();
+        sleep_ms(sleep_time); // 120hz
     }
     return 0;
 }
