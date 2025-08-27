@@ -4,6 +4,9 @@
 #include "inttypes.h"
 #include "string.h"
 #include "stdio.h"
+#include "stdlib.h"
+#include "tusb.h"
+#include "time.h"
 
 typedef struct imu_reader_settings_t {
     int sensorCount;
