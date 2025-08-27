@@ -36,7 +36,10 @@ typedef struct imu_reader_settings_t {
     int sampleRate;
 } imu_reader_settings_t;
 
-static imu_reader_settings_t imu_reader_settings = {0};
+
+imu_reader_settings_t imu_reader_settings = {
+    0
+};
 
 typedef struct data_fluctuation_t {
     float gyro[3][ARRAY_SIZE];
@@ -138,6 +141,7 @@ int main() {
     while (!tud_cdc_connected()) {
         sleep_ms(100);
     }
+    wait_for_settings();
     // setup_sh2_service();
     int result = setup_I2C_pins();
 
