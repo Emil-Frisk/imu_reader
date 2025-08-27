@@ -1,13 +1,13 @@
 #include "i2c_helpers.h"
-#include "tusb.h"
+#include "InitFusion.h"
 #include "Fusion.h"
+#include "ism330dlc.h"
+#include "tusb.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <time.h>
-#include "InitFusion.h"
 #include <stdlib.h>
 #include "settings.h"
-#include "ism330dlc.h"
 
 // extern sh2_vector_list_t sh2_vector_list;
 

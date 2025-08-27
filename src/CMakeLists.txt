@@ -5,4 +5,3 @@ message(STATUS "Src modules has been loaded")
 
 add_subdirectory(cmake_utils)
 add_subdirectory(imu_reader)
- 
