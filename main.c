@@ -9,14 +9,12 @@
 #include "read.h"
 #include "InitFusion.h"
 #include <stdlib.h>
-extern sh2_vector_list_t sh2_vector_list;
 
+extern sh2_vector_list_t sh2_vector_list;
 
 #define TIME_SLEEP (1000.0f/(float)SAMPLE_RATE)
 
 float sensors_data[SENSOR_COUNT][4];
-
-#define LPF_ALPHA 0.1f
 
 #define ARRAY_SIZE (1024)
 #define RESULT_COUNT (64)
@@ -37,6 +35,7 @@ typedef struct imu_reader_settings_t {
     float lpf_alpha;
     int sampleRate;
 } imu_reader_settings_t;
+
 static imu_reader_settings_t imu_reader_settings = {0};
 
 typedef struct data_fluctuation_t {
@@ -48,7 +47,7 @@ typedef struct data_fluctuation_t {
 data_fluctuation_t benchmark = {.cursor = 0};
 
 float apply_lpf(float new_val, float old_value) {
-    return old_value*(1.0f-LPF_ALPHA) + LPF_ALPHA*new_val;
+    return old_value*(1.0f-imu_reader_settings.lpf_alpha) + imu_reader_settings.lpf_alpha*new_val;
 }
 
 void extract_part(const char* part, const char* buf, settings_enum setting) {
@@ -107,17 +106,6 @@ void excract_settings(const char* buf) {
     printf("Settings: Sensor Count: %d; LPF Enabled %d; LPF_ALPHA %f; Sample Rate: %d\n",imu_reader_settings.sensorCount, imu_reader_settings.lpfEnabled, imu_reader_settings.lpf_alpha, imu_reader_settings.sampleRate);
 }
 
-void set_settings() {
-    #undef SENSOR_COUNT
-    #define SENSOR_COUNT (imu_reader_settings.sensorCount)
-    #undef LPF_ENABLED
-    #define LPF_ENABLED (imu_reader_settings.lpfEnabled)
-    #undef LPF_ALPHA
-    #define LPF_ALPHA (imu_reader_settings.lpf_alpha)
-    #undef SAMPLE_RATE
-    #define SAMPLE_RATE (imu_reader_settings.sampleRate)
-}
-
 // Waits for the user to send in some settings through the serial port
 void wait_for_settings() {
     char buf[SETTINGS_BUF_LEN];
@@ -130,7 +118,6 @@ void wait_for_settings() {
 
                 printf("Received settings: %s\n", buf);
                 excract_settings(buf);
-                set_settings();
                 break;
             }
         }
