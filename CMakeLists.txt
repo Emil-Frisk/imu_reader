@@ -26,6 +26,7 @@ target_link_libraries(
     main
     pico_stdlib
     hardware_i2c
+    imu_reader
 )
 
 # enable usb output, disable uart output

@@ -20,6 +20,10 @@ macro(create_impl_target NAME)
                 )
         
         target_link_libraries(${NAME} INTERFACE ${NAME}_headers)
+        
+        if (TARGET imu_reader AND NOT ${NAME} STREQUAL "imu_reader")
+            target_link_libraries(imu_reader INTERFACE ${NAME})
+        endif()
     endif()
 endmacro()
 

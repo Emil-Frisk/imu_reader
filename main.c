@@ -15,7 +15,6 @@ float apply_lpf(float new_val, float old_value) {
     return old_value*(1.0f-imu_reader_settings.lpf_alpha) + imu_reader_settings.lpf_alpha*new_val;
 }
 
-
 int main() {
     stdio_init_all();
     while (!tud_cdc_connected()) {
@@ -24,7 +23,6 @@ int main() {
     wait_for_settings();
     // setup_sh2_service();
     
-    wait_for_settings();
     float sensors_data[imu_reader_settings.sensorCount][4];
 
     float desired_loop_duration = 1000.0f/(float)imu_reader_settings.sampleRate;
