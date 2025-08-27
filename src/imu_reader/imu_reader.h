@@ -15,9 +15,8 @@ enum settings_enum_e {
 };
 
 // Global imu reader settings for the application
-imu_reader_settings_t imu_reader_settings = {0};
+extern imu_reader_settings_t imu_reader_settings;
+extern settings_enum settings_option;
 typedef enum settings_enum_e settings_enum;
-settings_enum settings_option;
-
 #endif
 

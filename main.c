@@ -18,13 +18,6 @@ float apply_lpf(float new_val, float old_value) {
     return old_value*(1.0f-imu_reader_settings.lpf_alpha) + imu_reader_settings.lpf_alpha*new_val;
 }
 
-void print_output_data (float sensors_data[][4]) {
-    for (int i = 0; i < imu_reader_settings.sensorCount; i++) {
-        printf("w%d: %.4f, x%d: %.4f, y%d: %.4f, z%d: %.4f | ",i, sensors_data[i][0],i, sensors_data[i][1],i, sensors_data[i][2],i, sensors_data[i][3] );
-    }
-    printf("\n");
-}
-
 
 int main() {
     stdio_init_all();
