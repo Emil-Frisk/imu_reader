@@ -6,6 +6,8 @@
 #include <time.h>
 #include "InitFusion.h"
 #include <stdlib.h>
+#include "settings.h"
+#include "ism330dlc.h"
 
 // extern sh2_vector_list_t sh2_vector_list;
 
@@ -69,7 +71,7 @@ int main() {
             sensors_data[i][2] = quat.element.y;
             sensors_data[i][3] = quat.element.z;           
         }
-        print_output_data(sensors_data);
+        // print_output_data(sensors_data);
         // uint64_t loop_end = time_us_64();
         sleep_ms(sleep_time); // 120hz
     }

@@ -4,6 +4,10 @@ macro(create_headers_target NAME)
         add_library(${NAME}_headers INTERFACE)
 
         target_include_directories(${NAME}_headers INTERFACE ${CMAKE_CURRENT_LIST_DIR})
+
+        if (TARGET imu_reader AND NOT ${NAME} STREQUAL "imu_reader")
+            target_link_libraries(imu_reader INTERFACE ${NAME}_headers)
+        endif()
     endif()
 endmacro()
 
@@ -20,8 +24,10 @@ macro(create_impl_target NAME)
                 )
         
         target_link_libraries(${NAME} INTERFACE ${NAME}_headers)
-        
+
+        # Add all targets to the base imu_reader
         if (TARGET imu_reader AND NOT ${NAME} STREQUAL "imu_reader")
+            message(STATUS "Linked ${NAME} to imu reader target!")
             target_link_libraries(imu_reader INTERFACE ${NAME})
         endif()
     endif()
