@@ -1,5 +1,6 @@
 #ifndef IMU_READER_H
 #define IMU_READER_H
+#include "inttypes.h"
 typedef struct imu_reader_settings_t {
     int sensorCount;
     int lpfEnabled;

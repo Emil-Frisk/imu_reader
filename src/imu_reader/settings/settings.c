@@ -1,7 +1,9 @@
+#include "settings.h"
+
 void extract_part(const char* part, const char* buf, settings_enum setting) {
         char *pos = strstr(buf, part);
         
-        if (pos == NULL) {
+        if (pos == 0) {
             printf("Error while extracting part %s not found in the buffer\n", part);
             while(1);
         } else {

@@ -1,16 +1,13 @@
-#include "ism330dlc.h"
 #include "i2c_helpers.h"
 #include "tusb.h"
 #include "Fusion.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <time.h>
-#include <sh2_paketti.h>
-#include "read.h"
 #include "InitFusion.h"
 #include <stdlib.h>
 
-extern sh2_vector_list_t sh2_vector_list;
+// extern sh2_vector_list_t sh2_vector_list;
 
 #define LOOP_DURATION_MS 6.252f
 
