@@ -1,0 +1,3 @@
+#ifndef SETTINGS_H
+#define SETTINGS_BUF_LEN (256)
+#endif SETTINGS_H

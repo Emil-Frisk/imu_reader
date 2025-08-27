@@ -18,5 +18,5 @@ bool ism330dhcx_read_accelerometer(i2c_inst_t* i2c_port, uint8_t device_addr, Fu
 bool ism330dhcx_read(i2c_inst_t* i2c_port, uint8_t device_addr, uint8_t reg, uint8_t* value);
 bool ism330dhcx_init(i2c_inst_t *i2c_port, uint8_t device_addr);
 int initialize_sensors(void);
-
+void read_all_sensors(Sensor* sensors);
 #endif
