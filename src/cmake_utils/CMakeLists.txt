@@ -24,7 +24,7 @@ macro(create_impl_target NAME)
 endmacro()
 
 
-function(create_full_target TARGET)
+macro(create_full_target TARGET)
     create_headers_target(${TARGET})
     create_impl_target(${TARGET})
-endfunction()
+endmacro()

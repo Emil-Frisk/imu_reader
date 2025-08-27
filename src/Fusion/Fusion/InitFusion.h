@@ -5,6 +5,7 @@
 #include <time.h>
 #include "FusionStructs.h"
 #include "i2c_helpers.h"
+#include "imu_reader.h"
 
 void initialize_calibrations(Sensor* sensors);
 void initialize_algos(Sensor* sensors);
