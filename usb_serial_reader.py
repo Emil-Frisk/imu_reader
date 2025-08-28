@@ -36,7 +36,7 @@ def get_int(message):
 def print_menu():
     print("### Select the settings for the IMU reader system! ###")
     answer = input("use default values (y/n):\t")
-    lpf_alpha = 0.95
+    lpf_alpha = 0.05
     sample_rate = 120
     lpf_enabled = 1
     sensor_count = 3
@@ -47,7 +47,7 @@ def print_menu():
         
         if (lpf_enabled.lower() == "y"):
             lpf_enabled = 1
-            answer = get_float("LPF alpha [input 0 to use the default value!] (bigger more slow to react to changes)")
+            answer = get_float("LPF alpha [input 0 to use the default value!] (bigger value will react faster to changes!)")
             if answer != 0:
                 lpf_alpha = answer
         else:
