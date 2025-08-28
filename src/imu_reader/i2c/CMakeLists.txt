@@ -1,5 +1,4 @@
 
-add_library(i2c_helpers INTERFACE)
 
 create_full_target(i2c_helpers)
 
