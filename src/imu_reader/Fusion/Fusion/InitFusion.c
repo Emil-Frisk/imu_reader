@@ -42,7 +42,7 @@ void initialize_algos(Sensor* sensors) {
                 .gyroscopeRange = 250.0f, /* replace this with actual gyroscope range in degrees/s */
                 .accelerationRejection = 10.0f,
                 .magneticRejection = 10.0f,
-                .recoveryTriggerPeriod = 5 * SAMPLE_RATE, /* 5 seconds */
+                .recoveryTriggerPeriod = 5 * imu_reader_settings.sampleRate, /* 5 seconds */
         };
         FusionAhrsSetSettings(&sensors[i].ahrs, &sensors[i].settings);
     }

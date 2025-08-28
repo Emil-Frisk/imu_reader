@@ -103,7 +103,7 @@ bool ism330dhcx_read_accelerometer(i2c_inst_t* i2c_port, uint8_t device_addr, Fu
 
 void read_all_sensors(Sensor* sensors) {
     int index = 0;
-   for (int i = 0; i < CHANNEL_COUNT; i++) {
+   for (int i = 0; i < imu_reader_settings.channelCount; i++) {
         if(i == 0) {
             ism330dhcx_read_accelerometer(I2C_PORT_0,ISM330DHCX_ADDR_DO_HIGH, &sensors[index].accelerometer);
             ism330dhcx_read_gyro(I2C_PORT_0,ISM330DHCX_ADDR_DO_HIGH, &sensors[index].gyroscope);

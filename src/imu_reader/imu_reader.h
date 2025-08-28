@@ -13,6 +13,7 @@ typedef struct imu_reader_settings_t {
     int lpfEnabled;
     float lpf_alpha;
     int sampleRate;
+    int channelCount; 
 } imu_reader_settings_t;
 
 enum settings_enum_e {

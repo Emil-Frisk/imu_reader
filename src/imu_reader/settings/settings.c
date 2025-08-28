@@ -55,10 +55,12 @@ void excract_settings(const char* buf) {
     extract_part("SR=", buf, settings_option);
 
     printf("Settings: Sensor Count: %d; LPF Enabled %d; LPF_ALPHA %f; Sample Rate: %d\n",imu_reader_settings.sensorCount, imu_reader_settings.lpfEnabled, imu_reader_settings.lpf_alpha, imu_reader_settings.sampleRate);
+    (imu_reader_settings.sensorCount > 2) ? (imu_reader_settings.channelCount = 2) : (imu_reader_settings.channelCount = 1);
 }
 
 // Waits for the user to send in some settings through the serial port
 void wait_for_settings() {
+
     char buf[SETTINGS_BUF_LEN];
     while (1) {
         if (tud_cdc_available()) {

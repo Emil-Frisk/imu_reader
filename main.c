@@ -48,7 +48,7 @@ int main() {
     // uint64_t start_time = time_us_64();
     while (true) {
         read_all_sensors(sensors);
-        for (int i=0; i<SENSOR_COUNT;i++) {
+        for (int i=0; i<imu_reader_settings.sensorCount;i++) {
             sensors[i].gyroscope_old.axis.x = apply_lpf(sensors[i].gyroscope.axis.x, sensors[i].gyroscope_old.axis.x);
             sensors[i].gyroscope_old.axis.y = apply_lpf(sensors[i].gyroscope.axis.y, sensors[i].gyroscope_old.axis.y);
             sensors[i].gyroscope_old.axis.z = apply_lpf(sensors[i].gyroscope.axis.z, sensors[i].gyroscope_old.axis.z);

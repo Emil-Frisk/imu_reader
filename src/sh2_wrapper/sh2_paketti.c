@@ -298,7 +298,7 @@ static void sh2_setSensorConfig_or_halt() {
     // Enable rotation vector (100 Hz)
     sh2_SensorConfig_t config;
     memset(&config, 0, sizeof(config));
-    float test = (1.0f/(float)SAMPLE_RATE) * 1000000.0f;
+    float test = (1.0f/(float)SAMPLE_RATE) * 1000000.0f; // DANGER
     config.reportInterval_us = test; // 10 ms = 100 Hz
     // TODO - add a global array rolling array and only take the latest value
 
