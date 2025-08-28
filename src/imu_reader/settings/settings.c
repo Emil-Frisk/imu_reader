@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "tusb.h"
 
 void extract_part(const char* part, const char* buf, settings_enum setting) {
         char *pos = strstr(buf, part);
@@ -58,19 +59,19 @@ void excract_settings(const char* buf) {
 
 // Waits for the user to send in some settings through the serial port
 void wait_for_settings() {
-    // char buf[SETTINGS_BUF_LEN];
-    // while (1) {
-    //     if (tud_cdc_available()) {
-    //         uint32_t count = tud_cdc_read(buf, sizeof(buf)-1);
-    //         if (count > 0) {
-    //             buf[count] = '\0';
-    //             // Process input (e.g., echo back)
+    char buf[SETTINGS_BUF_LEN];
+    while (1) {
+        if (tud_cdc_available()) {
+            uint32_t count = tud_cdc_read(buf, sizeof(buf)-1);
+            if (count > 0) {
+                buf[count] = '\0';
+                // Process input (e.g., echo back)
 
-    //             printf("Received settings: %s\n", buf);
-    //             excract_settings(buf);
-    //             break;
-    //         }
-    //     }
-    //     sleep_ms(300); // Avoid tight loop
-    // }
+                printf("Received settings: %s\n", buf);
+                excract_settings(buf);
+                break;
+            }
+        }
+        sleep_ms(300); // Avoid tight loop
+    }
 }

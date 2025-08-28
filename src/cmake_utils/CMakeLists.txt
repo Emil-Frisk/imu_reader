@@ -24,7 +24,6 @@ macro(create_impl_target NAME)
                 )
         
         target_link_libraries(${NAME} INTERFACE ${NAME}_headers)
-
         # Add all targets to the base imu_reader
         if (TARGET imu_reader AND NOT ${NAME} STREQUAL "imu_reader")
             message(STATUS "Linked ${NAME} to imu reader target!")

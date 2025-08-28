@@ -46,6 +46,7 @@ def print_menu():
         lpf_enabled = input("LPF enabled? (y/n)")
         
         if (lpf_enabled.lower() == "y"):
+            lpf_enabled = 1
             answer = get_float("LPF alpha [input 0 to use the default value!] (bigger more slow to react to changes)")
             if answer != 0:
                 lpf_alpha = answer
