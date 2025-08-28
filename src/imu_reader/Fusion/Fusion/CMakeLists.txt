@@ -1,3 +1,4 @@
+message(STATUS "FUSION has been loaded!")
 add_library(Fusion 
 FusionAhrs.c
 FusionCompass.c
@@ -10,6 +11,7 @@ target_include_directories(Fusion INTERFACE Fusion_headers)
 
 if (TARGET imu_reader)
     target_link_libraries(imu_reader INTERFACE Fusion)
+    message(STATUS "LINKED fusion to imu_reader")
 endif()
 
 target_link_libraries(Fusion
