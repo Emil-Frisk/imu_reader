@@ -18,7 +18,7 @@ float apply_lpf(float new_val, float old_value) {
     return old_value*(1.0f-imu_reader_settings.lpf_alpha) + imu_reader_settings.lpf_alpha*new_val;
 }
 
-void update_loop_with_lpf(float sleep_time, float sensors_data[][4], Sensor* sensors) {
+void update_loop_with_lpf(float sleep_time, float sensors_data[][7], Sensor* sensors) {
     while (true) {
     read_all_sensors(sensors);
     for (int i=0; i<imu_reader_settings.sensorCount;i++) {
@@ -43,7 +43,10 @@ void update_loop_with_lpf(float sleep_time, float sensors_data[][4], Sensor* sen
         sensors_data[i][0] = quat.element.w;
         sensors_data[i][1] = quat.element.x;
         sensors_data[i][2] = quat.element.y;
-        sensors_data[i][3] = quat.element.z;           
+        sensors_data[i][3] = quat.element.z;      
+        sensors_data[i][4] = sensors[i].gyroscope_old.axis.x
+        sensors_data[i][5] = sensors[i].gyroscope_old.axis.y
+        sensors_data[i][6] = sensors[i].gyroscope_old.axis.z
     }
     print_output_data(sensors_data);
     // uint64_t loop_end = time_us_64();
@@ -84,7 +87,7 @@ int main() {
     wait_for_settings();
     // setup_sh2_service();
     
-    float sensors_data[imu_reader_settings.sensorCount][4];
+    float sensors_data[imu_reader_settings.sensorCount][7];
     float desired_loop_duration = 1000.0f/(float)imu_reader_settings.sampleRate;
     float sleep_time = desired_loop_duration - LOOP_DURATION_MS;
     int result = setup_I2C_pins();
