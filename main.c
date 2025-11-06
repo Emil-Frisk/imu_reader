@@ -44,9 +44,9 @@ void update_loop_with_lpf(float sleep_time, float sensors_data[][7], Sensor* sen
         sensors_data[i][1] = quat.element.x;
         sensors_data[i][2] = quat.element.y;
         sensors_data[i][3] = quat.element.z;      
-        sensors_data[i][4] = sensors[i].gyroscope_old.axis.x
-        sensors_data[i][5] = sensors[i].gyroscope_old.axis.y
-        sensors_data[i][6] = sensors[i].gyroscope_old.axis.z
+        sensors_data[i][4] = sensors[i].gyroscope_old.axis.x;
+        sensors_data[i][5] = sensors[i].gyroscope_old.axis.y;
+        sensors_data[i][6] = sensors[i].gyroscope_old.axis.z;
     }
     print_output_data(sensors_data);
     // uint64_t loop_end = time_us_64();
